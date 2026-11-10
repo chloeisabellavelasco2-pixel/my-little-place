@@ -163,7 +163,7 @@ p:last-child { margin-bottom: 0; }
 }
 .welcome.is-opening .welcome-card { animation: welcome-out 1.2s .25s cubic-bezier(.4, 0, .3, 1) forwards; }
 .welcome.is-opening .welcome-envelope { animation: envelope-in 1.1s .8s cubic-bezier(.2, .8, .3, 1) forwards; }
-.welcome.is-opening .envelope-flap { transform: rotateX(180deg); opacity: .25; }
+.welcome.is-opening .envelope-flap { transform: rotateX(180deg); opacity: .25; transition-delay: 1.15s; }
 .welcome.is-opening .envelope-heart { animation: heart-lift 1.4s 1.9s ease forwards; }
 
 .lily-rain { position: fixed; inset: 0; z-index: 12; overflow: hidden; pointer-events: none; }
@@ -523,15 +523,21 @@ html.js main > section.is-visible { opacity: 1; transform: none; }
 .reason-hint { margin: 0; font-size: 1.12rem; }
 
 .hearts-field {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
-  gap: 12px 8px; padding: 8px 2px 20px;
+  position: relative; height: clamp(540px, 74vh, 780px); margin-top: 4px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 7%, #000 91%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 7%, #000 91%, transparent);
 }
 .heart-note {
-  position: relative; display: grid; place-items: center;
-  aspect-ratio: 1; padding: 0; border: 0; background: transparent;
+  position: absolute; top: 0; left: var(--left, 50%);
+  display: grid; place-items: center;
+  width: var(--width, 54px); aspect-ratio: 1; padding: 0;
+  margin-left: calc(var(--width, 54px) / -2);
+  border: 0; background: transparent;
   color: #b9a6d6; cursor: pointer;
   transform: rotate(var(--tilt, 0deg));
-  transition: color .3s ease, transform .3s ease;
+  animation: heart-drift var(--dur, 48s) linear var(--delay, 0s) infinite;
+  transition: color .3s ease, scale .26s ease;
 }
 .heart-note svg {
   display: block; width: calc(100% * var(--scale, 1)); height: auto;
@@ -549,7 +555,8 @@ html.js main > section.is-visible { opacity: 1; transform: none; }
   text-anchor: middle; letter-spacing: .02em; opacity: .8;
   transition: fill .3s ease, opacity .3s ease;
 }
-.heart-note:hover { color: var(--purple); transform: rotate(0deg) scale(1.09); z-index: 3; }
+.heart-note:hover { color: var(--purple); scale: 1.16; z-index: 4; animation-play-state: paused; }
+.heart-note:active { scale: 1.02; }
 .heart-note:hover svg path { fill: rgba(255, 255, 255, .95); }
 .heart-note.is-discovered { color: var(--rose); }
 .heart-note.is-discovered svg path { fill: currentColor; stroke: currentColor; }
@@ -675,6 +682,10 @@ html.js .letter-paper.is-read .letter-signoff { animation: fade-up .8s ease .55s
   90% { opacity: .35; }
   100% { opacity: 0; transform: translate3d(calc(var(--drift, 30px) * -.6), 106vh, 0) rotate(-8deg); }
 }
+@keyframes heart-drift {
+  0% { transform: translateY(-14%) rotate(var(--tilt, 0deg)); }
+  100% { transform: translateY(var(--fall, 700px)) rotate(var(--tilt, 0deg)); }
+}
 @keyframes heart-sway { 0%, 100% { transform: rotate(-4deg) translateY(0); } 50% { transform: rotate(5deg) translateY(-5px); } }
 @keyframes heart-pop { 0% { transform: scale(1); } 40% { transform: scale(1.22); } 70% { transform: scale(.96); } 100% { transform: scale(1); } }
 @keyframes envelope-in {
@@ -711,7 +722,7 @@ html.js .letter-paper.is-read .letter-signoff { animation: fade-up .8s ease .55s
   .gallery-card-featured { grid-column: span 6; grid-row: span 4; }
   .gallery-card-medium { grid-column: span 3; grid-row: span 3; }
   .gallery-card-small { grid-column: span 2; grid-row: span 2; }
-  .hearts-field { grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); gap: 8px 6px; }
+  .hearts-field { height: clamp(470px, 68vh, 640px); }
   .section-wrap { width: min(100% - 34px, 1120px); }
   .letters-section, .memories-section, .confession-section { padding-block: 72px; }
   .letter-paper { padding: 26px 22px; }
@@ -741,7 +752,7 @@ html.js .letter-paper.is-read .letter-signoff { animation: fade-up .8s ease .55s
   .film-controls { gap: 10px; padding: 8px 12px max(12px, env(safe-area-inset-bottom)); }
   .film-counter { font-size: .66rem; }
   .film-controls progress { width: min(38%, 220px); }
-  .hearts-field { grid-template-columns: repeat(auto-fill, minmax(44px, 1fr)); gap: 6px 4px; }
+  .hearts-field { height: clamp(430px, 64vh, 580px); }
   .reason-hint { font-size: 1rem; }
   .confession-card { padding-top: 44px; padding-bottom: 38px; }
   .confession-flower { top: 14px; right: 16px; font-size: 22px; }
@@ -760,4 +771,11 @@ html.js .letter-paper.is-read .letter-signoff { animation: fade-up .8s ease .55s
   html.js main > section { opacity: 1; transform: none; }
   html.js .confession-copy p { opacity: 1; transform: none; }
   .falling-heart, .falling-lily { display: none; }
+  .hearts-field {
+    display: grid; height: auto; grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+    gap: 10px 8px; -webkit-mask-image: none; mask-image: none;
+  }
+  .heart-note { position: static; width: auto; margin-left: 0; animation: none; }
+  .heart-note svg { animation: none; }
+  .heart-note:hover { scale: 1; }
 }
