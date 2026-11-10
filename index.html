@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Little Place for You</title>
+  <meta name="description" content="A little world made of memories, music and words — for Khloe.">
+  <meta name="theme-color" content="#f3effa">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="camera-dim" id="camera-dim" aria-hidden="true"></div>
+  <div class="camera-flash" id="camera-flash" aria-hidden="true"></div>
+  <div class="lily-rain" id="lily-rain" aria-hidden="true"></div>
+
+  <!-- ===================== PASSWORD ENTRY ===================== -->
+  <section class="welcome" id="welcome">
+    <span class="tiny-star star-one" aria-hidden="true">&#10022;</span>
+    <span class="tiny-star star-two" aria-hidden="true">&#10022;</span>
+    <span class="tiny-star star-three" aria-hidden="true">&#10022;</span>
+
+    <div class="welcome-card">
+      <div class="welcome-flower" aria-hidden="true">&#10047;</div>
+      <p class="eyebrow">A little world, just for you</p>
+      <h1>A Little Place<br><em>for You</em></h1>
+      <p class="welcome-copy">
+        If I could gather all the little things that remind me of you, I'd weave them into a world of their
+        own. A world made of the things you love, the little things that make you smile, and all the colors
+        that remind me of you.
+      </p>
+      <p class="welcome-copy">
+        And somewhere in that world, there would be a little place just for you, a place where worries grow
+        quiet, where pain feels a little lighter, and where happiness finds its way into even the smallest
+        moments.
+      </p>
+
+      <form class="unlock-form" id="unlock-form" novalidate>
+        <label class="sr-only" for="passphrase">The password</label>
+        <input
+          id="passphrase"
+          name="passphrase"
+          type="password"
+          placeholder="The little password"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          aria-describedby="form-message"
+        >
+        <button class="button button-primary" type="submit">Unlock</button>
+        <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+      </form>
+
+      <p class="handwritten welcome-note">the key is a date we keep close &#9825;</p>
+    </div>
+
+    <div class="welcome-envelope" id="welcome-envelope" aria-hidden="true">
+      <span class="envelope-flap"></span>
+      <span class="envelope-heart">&#9825;</span>
+    </div>
+  </section>
+
+  <!-- ===================== MAIN SITE ===================== -->
+  <div class="site" id="site" hidden>
+    <header class="topbar">
+      <a class="wordmark" href="#home">A Little Place</a>
+      <nav aria-label="Chapters">
+        <a href="#letters">Letters</a>
+        <a href="#memories">Memories</a>
+        <a href="#confession">The Important Bit</a>
+      </nav>
+      <button class="music-button" id="music-toggle" type="button" aria-pressed="false" aria-label="Play background music">
+        <span class="music-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span id="music-label">A little music</span>
+      </button>
+    </header>
+
+    <div class="lyric-display" id="lyric-display" aria-hidden="true">
+      <p id="lyric-line"></p>
+      <span class="lyric-time" id="lyric-time"></span>
+    </div>
+
+    <main>
+      <!-- ---------- FIRST CHAPTER ---------- -->
+      <section class="gallery-intro" id="home">
+        <div class="gallery-intro-inner">
+          <svg class="camera-icon" viewBox="0 0 64 52" fill="none" aria-hidden="true">
+            <rect x="3" y="13" width="58" height="36" rx="7" stroke="currentColor" stroke-width="2.2"/>
+            <path d="M21 13l4.5-7h13L43 13" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+            <circle cx="32" cy="31" r="10" stroke="currentColor" stroke-width="2.2"/>
+            <circle cx="32" cy="31" r="4.2" fill="currentColor" opacity=".55"/>
+            <circle cx="52" cy="21" r="2" fill="currentColor"/>
+          </svg>
+          <p class="eyebrow">First chapter</p>
+          <h2>A Little <em>World of Yours</em></h2>
+          <p class="gallery-intro-copy">
+            A collection of moments, people, and little things that make your world special.
+            Settle in and relive the memories.
+          </p>
+          <div class="gallery-actions">
+            <button class="button film-trigger" id="watch-memories" type="button">
+              <span aria-hidden="true">&#9654;</span> Watch the Memories
+            </button>
+            <button class="button gallery-open" id="open-gallery" type="button">Open the scrapbook</button>
+          </div>
+          <p class="gallery-instruction">Fifteen photographs, one quiet film, and a little music.</p>
+        </div>
+        <span class="world-spark world-spark-one" aria-hidden="true">&#10022;</span>
+        <span class="world-spark world-spark-two" aria-hidden="true">&#10022;</span>
+        <span class="world-heart world-heart-one" aria-hidden="true">&#9825;</span>
+        <span class="world-heart world-heart-two" aria-hidden="true">&#9825;</span>
+      </section>
+
+      <!-- ---------- PHOTO SCRAPBOOK ---------- -->
+      <section class="memories-section" id="memories" hidden>
+        <div class="section-wrap">
+          <div class="section-heading">
+            <p class="eyebrow">The photographs</p>
+            <h2>Little <em>Pieces of Us</em></h2>
+            <p>Tap any photograph to see it properly. Some things deserve a closer look.</p>
+          </div>
+          <div class="gallery-grid" id="gallery-grid"></div>
+
+          <div class="gallery-next">
+            <p>There are more little things waiting for you — one hundred of them, in fact.</p>
+            <a class="button button-primary" href="#letters">A Hundred Little Reasons &#8594;</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- SECOND CHAPTER ---------- -->
+      <section class="letters-section" id="letters">
+        <div class="heart-rain" id="heart-rain" aria-hidden="true"></div>
+        <div class="section-wrap">
+          <div class="section-heading">
+            <p class="eyebrow">Second chapter</p>
+            <h2>A Hundred <em>Little Reasons</em></h2>
+            <p>One hundred little things, each holding a reason why I appreciate you.</p>
+          </div>
+
+          <div class="reason-meter">
+            <p class="reason-counter" id="reason-counter" role="status" aria-live="polite">0 out of 100 little reasons discovered.</p>
+            <div class="reason-progress" aria-hidden="true"><span id="reason-progress-bar"></span></div>
+            <p class="handwritten reason-hint">let the hearts fall to you — catch one, and read it</p>
+          </div>
+
+          <div class="hearts-field" id="hearts-field" aria-label="One hundred little reasons"></div>
+
+          <p class="section-note handwritten">some of these you already know. some of them I've never said out loud.</p>
+        </div>
+      </section>
+
+      <!-- ---------- THIRD CHAPTER ---------- -->
+      <section class="confession-section" id="confession">
+        <div class="section-wrap">
+          <div class="section-heading">
+            <p class="eyebrow">Third chapter</p>
+            <h2>From My Heart, <em>to You.</em></h2>
+          </div>
+
+          <div class="confession-card">
+            <span class="confession-flower" aria-hidden="true">&#10047;</span>
+            <div class="letter-paper" id="letter-paper">
+              <p class="letter-greeting handwritten">Dear Khloe,</p>
+              <div class="confession-copy" id="confession-copy"></div>
+              <p class="letter-signoff handwritten">Always, in every little way,<br><span>yours</span></p>
+            </div>
+            <button class="button button-primary read-again" id="read-again" type="button">Read Again</button>
+            <p class="gentle-note">
+              There is no pressure in any of this, and no wrong way to feel. I only wanted you to know.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Made slowly, with a great deal of care,</span>
+      <span>for Khloe &#9825;</span>
+    </footer>
+  </div>
+
+  <!-- ===================== DIALOGS ===================== -->
+  <dialog class="letter-dialog" id="letter-dialog" aria-labelledby="dialog-title">
+    <button class="dialog-close" id="dialog-close" type="button" aria-label="Close this note">&times;</button>
+    <span class="dialog-flower" aria-hidden="true">&#10047;</span>
+    <p class="dialog-eyebrow" id="dialog-eyebrow">A little reason</p>
+    <h2 id="dialog-title">A little note</h2>
+    <p class="dialog-copy" id="dialog-copy"></p>
+    <p class="dialog-signoff handwritten">— for you, always</p>
+  </dialog>
+
+  <dialog class="photo-dialog" id="photo-dialog" aria-labelledby="photo-dialog-counter">
+    <div class="photo-dialog-header">
+      <span id="photo-dialog-counter">1 / 15</span>
+      <span class="photo-dialog-filename" id="photo-dialog-filename"></span>
+      <button class="dialog-close" id="photo-dialog-close" type="button" aria-label="Close photograph">&times;</button>
+    </div>
+    <div class="photo-dialog-stage">
+      <img id="photo-dialog-image" alt="" hidden>
+      <div class="photo-dialog-placeholder" id="photo-dialog-placeholder" hidden>
+        <span class="photo-placeholder-mark" aria-hidden="true">&#9825;</span>
+        <span>This photograph is still finding its way here.</span>
+        <span class="photo-placeholder-name" id="photo-dialog-missing"></span>
+      </div>
+      <button class="photo-nav photo-prev" id="photo-prev" type="button" aria-label="Previous photograph">&#8249;</button>
+      <button class="photo-nav photo-next" id="photo-next" type="button" aria-label="Next photograph">&#8250;</button>
+    </div>
+    <p class="photo-dialog-caption" id="photo-dialog-caption" hidden></p>
+  </dialog>
+
+  <dialog class="memory-film" id="memory-film" aria-label="Our memories, a slideshow">
+    <div class="memory-film-frame">
+      <div class="film-header">
+        <p class="film-lyric" id="film-lyric"></p>
+        <span class="film-lyric-time" id="film-lyric-time"></span>
+        <button class="dialog-close film-close" id="film-close" type="button" aria-label="Close the slideshow">&times;</button>
+      </div>
+      <div class="film-stage" id="film-stage"></div>
+      <div class="film-controls">
+        <button class="film-control" id="film-toggle" type="button" aria-label="Pause slideshow">&#10074;&#10074;</button>
+        <span class="film-counter" id="film-counter">Memory 1 of 15</span>
+        <progress id="film-progress" max="15" value="1">1 of 15</progress>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <audio id="background-audio" preload="metadata"></audio>
+  <script src="script.js"></script>
+</body>
+</html>
