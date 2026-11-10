@@ -1,11 +1,11 @@
 FROM node:26-alpine
 
-# Refresh the Alpine package index and pull the patched zlib
-# (ALPINE-CVE-2026-4738 is fixed in 1.4-r0). The explicit version
-# requirement also keeps this layer from being served from an older cache.
-RUN apk upgrade --no-cache \
- && apk add --no-cache --upgrade 'zlib>=1.4-r0' \
- && rm -rf /var/cache/apk/*
+# Refresh Alpine packages and require the patched zlib
+# (ALPINE-CVE-2026-4738 is fixed in 1.4-r0).
+# Keep /var/cache/apk present so image scanners can read package metadata.
+RUN mkdir -p /var/cache/apk \
+ && apk upgrade --no-cache \
+ && apk add --no-cache --upgrade 'zlib>=1.4-r0'
 
 WORKDIR /app
 
