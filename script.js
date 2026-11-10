@@ -220,6 +220,7 @@ const watchMemoriesButton = $("watch-memories");
 const openGalleryButton = $("open-gallery");
 const heartsField = $("hearts-field");
 const heartRain = $("heart-rain");
+const heartsToggle = $("hearts-toggle");
 const reasonCounter = $("reason-counter");
 const reasonProgressBar = $("reason-progress-bar");
 const letterPaper = $("letter-paper");
@@ -1019,6 +1020,21 @@ if (letterDialog) {
 
 buildHearts();
 updateReasonCounter();
+
+let heartsStill = false;
+
+function setHeartsStill(still) {
+  heartsStill = still;
+  if (heartsField) heartsField.classList.toggle("is-still", still);
+  if (heartsToggle) {
+    heartsToggle.setAttribute("aria-pressed", String(still));
+    heartsToggle.textContent = still ? "Let the hearts fall" : "Hold the hearts still";
+  }
+}
+
+if (heartsToggle) {
+  heartsToggle.addEventListener("click", () => setHeartsStill(!heartsStill));
+}
 
 /* ---------- falling decorative hearts behind the notes ---------- */
 function buildHeartRain() {

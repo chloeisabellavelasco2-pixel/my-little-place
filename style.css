@@ -522,6 +522,21 @@ html.js main > section.is-visible { opacity: 1; transform: none; }
 }
 .reason-hint { margin: 0; font-size: 1.12rem; }
 
+.hearts-toggle {
+  margin: 6px auto 0; padding: 9px 20px;
+  border-radius: 999px; border: 1px solid rgba(140, 116, 180, .28);
+  background: rgba(255, 255, 255, .62); color: #6d5a8c;
+  font-family: inherit; font-size: .8rem; letter-spacing: .05em;
+  cursor: pointer; backdrop-filter: blur(6px);
+  transition: background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
+}
+.hearts-toggle:hover { background: rgba(255, 255, 255, .92); color: var(--purple); transform: translateY(-1px); }
+.hearts-toggle[aria-pressed="true"] {
+  background: rgba(196, 152, 178, .2);
+  border-color: rgba(178, 120, 150, .45);
+  color: #8a5d7c;
+}
+.hearts-field.is-still .heart-note { animation-play-state: paused; }
 .hearts-field {
   position: relative; height: clamp(540px, 74vh, 780px); margin-top: 4px;
   overflow: hidden;
