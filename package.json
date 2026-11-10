@@ -1,0 +1,14 @@
+{
+  "name": "a-little-place-for-you",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A Little Place for You — an interactive scrapbook and love letter.",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
