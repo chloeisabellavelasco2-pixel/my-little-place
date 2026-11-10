@@ -220,7 +220,6 @@ const watchMemoriesButton = $("watch-memories");
 const openGalleryButton = $("open-gallery");
 const heartsField = $("hearts-field");
 const heartRain = $("heart-rain");
-const heartsToggle = $("hearts-toggle");
 const reasonCounter = $("reason-counter");
 const reasonProgressBar = $("reason-progress-bar");
 const letterPaper = $("letter-paper");
@@ -963,8 +962,6 @@ function buildHearts() {
     heart.style.setProperty("--scale", scale.toFixed(2));
     heart.style.setProperty("--sway", `${6 + (index % 5)}s`);
     heart.style.setProperty("--sway-delay", `${((index % 11) * -0.6).toFixed(1)}s`);
-    heart.style.setProperty("--dur", `${30 + (index % 8) * 5}s`);
-    heart.style.setProperty("--delay", `${(-(index / REASONS.length) * (30 + (index % 8) * 5)).toFixed(2)}s`);
 
     if (discovered.has(index)) heart.classList.add("is-discovered");
 
@@ -978,16 +975,39 @@ function buildHearts() {
 
 function layoutHearts() {
   if (!heartsField) return;
+  const hearts = heartsField.querySelectorAll(".heart-note");
+  if (!hearts.length) return;
+
+  // Reduced motion keeps the plain, static grid from the stylesheet.
+  if (prefersReducedMotion()) {
+    heartsField.style.removeProperty("height");
+    hearts.forEach((heart) => {
+      heart.style.removeProperty("--left");
+      heart.style.removeProperty("--rest");
+    });
+    return;
+  }
+
   const width = heartsField.clientWidth || 900;
-  const height = heartsField.clientHeight || 620;
-  const size = width < 480 ? 40 : width < 760 ? 46 : 54;
-  const fall = height + size + 60;
-  heartsField.querySelectorAll(".heart-note").forEach((heart, index) => {
-    const spread = (index * 61.8034) % 100;
-    const left = 3 + spread * 0.94;
-    heart.style.setProperty("--left", `${left.toFixed(2)}%`);
+  const size = width < 480 ? 38 : width < 760 ? 44 : 52;
+  const columns = Math.max(4, Math.floor(width / (size * 1.35)));
+  const rows = Math.ceil(hearts.length / columns);
+  const rowHeight = Math.round(size * 1.18);
+  const height = Math.max(rows * rowHeight + size, 420);
+  heartsField.style.height = `${height}px`;
+
+  hearts.forEach((heart, index) => {
+    const column = index % columns;
+    const row = Math.floor(index / columns);
+    const jitterX = (((index * 37) % 11) - 5) * (size * 0.055);
+    const jitterY = (((index * 53) % 9) - 4) * (size * 0.07);
+    const leftPx = ((column + 0.5) / columns) * width + jitterX;
+    const rest = row * rowHeight + jitterY + size * 0.22;
+    heart.style.setProperty("--left", `${leftPx.toFixed(1)}px`);
     heart.style.setProperty("--width", `${size}px`);
-    heart.style.setProperty("--fall", `${fall.toFixed(0)}px`);
+    heart.style.setProperty("--rest", `${Math.max(0, rest).toFixed(0)}px`);
+    heart.style.setProperty("--dur", `${(1.5 + (index % 7) * 0.15).toFixed(2)}s`);
+    heart.style.setProperty("--delay", `${(0.08 + index * 0.016).toFixed(2)}s`);
   });
 }
 
@@ -1020,21 +1040,6 @@ if (letterDialog) {
 
 buildHearts();
 updateReasonCounter();
-
-let heartsStill = false;
-
-function setHeartsStill(still) {
-  heartsStill = still;
-  if (heartsField) heartsField.classList.toggle("is-still", still);
-  if (heartsToggle) {
-    heartsToggle.setAttribute("aria-pressed", String(still));
-    heartsToggle.textContent = still ? "Let the hearts fall" : "Hold the hearts still";
-  }
-}
-
-if (heartsToggle) {
-  heartsToggle.addEventListener("click", () => setHeartsStill(!heartsStill));
-}
 
 /* ---------- falling decorative hearts behind the notes ---------- */
 function buildHeartRain() {

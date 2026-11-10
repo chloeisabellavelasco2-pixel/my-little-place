@@ -522,26 +522,9 @@ html.js main > section.is-visible { opacity: 1; transform: none; }
 }
 .reason-hint { margin: 0; font-size: 1.12rem; }
 
-.hearts-toggle {
-  margin: 6px auto 0; padding: 9px 20px;
-  border-radius: 999px; border: 1px solid rgba(140, 116, 180, .28);
-  background: rgba(255, 255, 255, .62); color: #6d5a8c;
-  font-family: inherit; font-size: .8rem; letter-spacing: .05em;
-  cursor: pointer; backdrop-filter: blur(6px);
-  transition: background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
-}
-.hearts-toggle:hover { background: rgba(255, 255, 255, .92); color: var(--purple); transform: translateY(-1px); }
-.hearts-toggle[aria-pressed="true"] {
-  background: rgba(196, 152, 178, .2);
-  border-color: rgba(178, 120, 150, .45);
-  color: #8a5d7c;
-}
-.hearts-field.is-still .heart-note { animation-play-state: paused; }
 .hearts-field {
   position: relative; height: clamp(540px, 74vh, 780px); margin-top: 4px;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 7%, #000 91%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 7%, #000 91%, transparent);
 }
 .heart-note {
   position: absolute; top: 0; left: var(--left, 50%);
@@ -551,7 +534,7 @@ html.js main > section.is-visible { opacity: 1; transform: none; }
   border: 0; background: transparent;
   color: #b9a6d6; cursor: pointer;
   transform: rotate(var(--tilt, 0deg));
-  animation: heart-drift var(--dur, 48s) linear var(--delay, 0s) infinite;
+  animation: heart-fall var(--dur, 2.2s) cubic-bezier(.2, .72, .3, 1) var(--delay, 0s) both;
   transition: color .3s ease, scale .26s ease;
 }
 .heart-note svg {
@@ -570,7 +553,7 @@ html.js main > section.is-visible { opacity: 1; transform: none; }
   text-anchor: middle; letter-spacing: .02em; opacity: .8;
   transition: fill .3s ease, opacity .3s ease;
 }
-.heart-note:hover { color: var(--purple); scale: 1.16; z-index: 4; animation-play-state: paused; }
+.heart-note:hover { color: var(--purple); scale: 1.16; z-index: 4; }
 .heart-note:active { scale: 1.02; }
 .heart-note:hover svg path { fill: rgba(255, 255, 255, .95); }
 .heart-note.is-discovered { color: var(--rose); }
@@ -697,9 +680,11 @@ html.js .letter-paper.is-read .letter-signoff { animation: fade-up .8s ease .55s
   90% { opacity: .35; }
   100% { opacity: 0; transform: translate3d(calc(var(--drift, 30px) * -.6), 106vh, 0) rotate(-8deg); }
 }
-@keyframes heart-drift {
-  0% { transform: translateY(-14%) rotate(var(--tilt, 0deg)); }
-  100% { transform: translateY(var(--fall, 700px)) rotate(var(--tilt, 0deg)); }
+@keyframes heart-fall {
+  0% { transform: translateY(-140px) rotate(calc(var(--tilt, 0deg) * 2.4)); opacity: 0; }
+  18% { opacity: 1; }
+  62% { transform: translateY(calc(var(--rest, 300px) + 10px)) rotate(var(--tilt, 0deg)); }
+  100% { transform: translateY(var(--rest, 300px)) rotate(var(--tilt, 0deg)); opacity: 1; }
 }
 @keyframes heart-sway { 0%, 100% { transform: rotate(-4deg) translateY(0); } 50% { transform: rotate(5deg) translateY(-5px); } }
 @keyframes heart-pop { 0% { transform: scale(1); } 40% { transform: scale(1.22); } 70% { transform: scale(.96); } 100% { transform: scale(1); } }
